@@ -1,3 +1,4 @@
+const text_tag_regex = /^\[T(\{(?:font-style:"([buis]+)")?,*\s*(?:link:"(https:\/\/[^"]+)")?\})\] (.*$)/gim;
 
 function parseFontStyles(fontStyles) {
     let fontStyleAttributes = '';
@@ -30,4 +31,4 @@ function parseFontStyles(fontStyles) {
     return fontStyleAttributes;
 }
 
-module.exports = { parseFontStyles };
+module.exports = { text_tag_regex, parseFontStyles };
