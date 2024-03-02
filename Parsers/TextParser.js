@@ -1,5 +1,4 @@
-const text_tag_regex = /\[T.*]\s*(.*$)/gim;
-const attributes_regex = /(?<=\[T\{)\s*\w+-*\w+:"[^"]*"\s*(?=,)|(?<=,)\s*\w+-*\w+:"[^"]*"\s*(?=,)|(?<=\[T\{)\s*\w+-*\w+:"[^"]*"\s*(?=})|(?<=,)\s*\w+-*\w+:"[^"]*"\s*(?=})/gim
+const text_tag_regex = /\[T{.*}]\s*(.*)\[\/T]$/gim;
 const colon_separator_regex = /(?<!https):(?!\/\/)/gm
 
 function parseFontStyles(fontStyles) {
@@ -56,15 +55,4 @@ function getTagContainingContent(style) {
   }
 }
 
-function getAttributesArray(line) {
-  let matches = [];
-  let match;
-
-  while ((match = attributes_regex.exec(line)) !== null) {
-    matches.push(match[0].trim());
-  }
-
-  return matches;
-}
-
-module.exports = { text_tag_regex, colon_separator_regex, getAttributesArray, getTagContainingContent, parseFontStyles };
+module.exports = { text_tag_regex, colon_separator_regex, getTagContainingContent, parseFontStyles };
