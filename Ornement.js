@@ -26,8 +26,9 @@ To all of my [T{style:"sup",  highlight-color:"#00FF00", font-style:"i"}]friends
 [M{src:"test.ogg"}]Test[/M]
 [L{type:"n"}]
 # tetst;
-# test[T{style:"sup",  highlight-color:"#00FF00", font-style:"i"}]2[/T];
+# test[T{style:"sub",  highlight-color:"#00FF00", font-style:"i"}]2[/T];
 # test3;
+# [M{src:"test.ogg"}]Test[/M];
 [/L]
 `;
 

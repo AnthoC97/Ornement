@@ -1,4 +1,6 @@
 const utils = require("./Utils");
+const textParser = require("./TextParser");
+const mediaParser = require("./MediaParser");
 
 const list_tag_regex = /\[L{.*}]\n(#\s*.+;\n)+\[\/L\]/gmis;
 const items_in_content = /#\s*([^;]+);/g;
@@ -8,48 +10,18 @@ function getItemsList(content) {
     let match;
 
     while ((match = items_in_content.exec(content)) !== null) {
-      li_list += "<li>"+match[1].trim()+"</li>";
+      var text_parsed = match[1].trim()
+      .replace(textParser.text_tag_regex, (allLine, content) => {
+        return textParser.generateHtmlTextFromLine(allLine, content);
+      })
+      .replace(mediaParser.media_tag_regex, (allLine, content) => {
+        return mediaParser.generateHtmlMediaFromLine(allLine);
+      })
+      console.log(text_parsed);
+      li_list += "<li>"+text_parsed+"</li>";
     }
 
     return li_list;
-}
-
-
-function getTagForMedia(url) {
-    let media_type = ""
-    const extension = url.split('.').pop().toLowerCase();
-
-    // If the extension doesn't match any known types
-    media_type = 'unknown';
-    
-    // Check for image types
-    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
-    if (imageExtensions.includes(extension)) {
-        media_type = 'image';
-    }
-
-    // Check for audio (sound) types
-    const audioExtensions = ['mp3', 'wav', 'ogg', 'aac'];
-    if (audioExtensions.includes(extension)) {
-        media_type = 'audio';
-    }
-
-    // Check for video types
-    const videoExtensions = ['mp4', 'webm', 'avi', 'mkv'];
-    if (videoExtensions.includes(extension)) {
-        media_type = 'video';
-    }
-
-    switch (media_type) {
-      case "image":
-        return "<img src='{}'/>";
-      case "video":
-        return "<video src='{}' preload='none' controls/>";
-      case "audio":
-        return "<audio src='{}' preload='none' controls/>";
-      default:
-        return ""; 
-  }
 }
 
 const generateHtmlListFromLine = (allLine, content) => {
