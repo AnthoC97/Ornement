@@ -56,8 +56,7 @@ function getTagContainingContent(style) {
   }
 }
 
-const generateHtmlFromLine = (allLine, content) => {
-  console.log("all : " + content);
+const generateHtmlTextFromLine = (allLine, content) => {
   let tagContainingContent = "<span {}>";
   let closingTagContainingContent = "</span>";
 
@@ -69,16 +68,13 @@ const generateHtmlFromLine = (allLine, content) => {
   // getting all attributes for a line
   let attributes = utils.getAttributesArray(allLine);
 
-  console.log(attributes);
   // settings to set HTML code
   for (var i = 0; i < attributes.length; i++) {
     var [attribute, attribute_value] = attributes[i].split(utils.colon_separator_regex);
 
     if (attribute === "font-style") {
-      console.log("font-style");
       styleAttribute = parseFontStyles(attribute_value);
     } else if (attribute === "link") {
-      console.log("link");
       link = attribute_value.replace(/"/g, '');
     } else if (attribute === "color") {
       colorAttribute = `color: ${attribute_value.replace(/"/g, '')};`;
@@ -104,4 +100,4 @@ const generateHtmlFromLine = (allLine, content) => {
   return result;
 };
 
-module.exports = { text_tag_regex, generateHtmlFromLine };
+module.exports = { text_tag_regex, generateHtmlTextFromLine };
