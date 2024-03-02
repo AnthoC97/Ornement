@@ -33,6 +33,29 @@ function parseFontStyles(fontStyles) {
     return fontStyleAttributes;
 }
 
+function getTagContainingContent(style) {
+  switch (style) {
+    case "t1":
+      return ["<h1 {}>", "</h1>"];
+    case "t2":
+      return ["<h2 {}>", "</h2>"];
+    case "t3":
+      return ["<h3 {}>", "</h3>"];
+    case "t4":
+      return ["<h4 {}>", "</h4>"];
+    case "t5":
+      return ["<h5 {}>", "</h5>"];
+    case "t6":
+      return ["<h6 {}>", "</h6>"];
+    case "sup":
+      return ["<sup {}>", "</sup>"];
+    case "sub":
+      return ["<sub {}>", "</sub>"];
+    default:
+      return ["<span {}>", "</span>"]; 
+  }
+}
+
 function getAttributesArray(line) {
   let matches = [];
   let match;
@@ -44,4 +67,4 @@ function getAttributesArray(line) {
   return matches;
 }
 
-module.exports = { text_tag_regex, colon_separator_regex, getAttributesArray, parseFontStyles };
+module.exports = { text_tag_regex, colon_separator_regex, getAttributesArray, getTagContainingContent, parseFontStyles };
