@@ -1,4 +1,4 @@
-const attributes_regex = /(?<=\[[T|M]\{)\s*\w+-*\w+:"[^"]*"\s*(?=,)|(?<=,)\s*\w+-*\w+:"[^"]*"\s*(?=,)|(?<=\[[T|M]\{)\s*\w+-*\w+:"[^"]*"\s*(?=})|(?<=,)\s*\w+-*\w+:"[^"]*"\s*(?=})/gim
+const attributes_regex = /(?<=\[[T|M|L]\{)\s*\w+-*\w+:"[^"]*"\s*(?=,)|(?<=,)\s*\w+-*\w+:"[^"]*"\s*(?=,)|(?<=\[[T|M|L]\{)\s*\w+-*\w+:"[^"]*"\s*(?=})|(?<=,)\s*\w+-*\w+:"[^"]*"\s*(?=})/gim
 const colon_separator_regex = /(?<!https):(?!\/\/)/gm
 
 function getAttributesArray(line) {

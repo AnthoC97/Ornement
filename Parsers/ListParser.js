@@ -1,6 +1,19 @@
 const utils = require("./Utils");
 
-const media_tag_regex = /\[M{.*}]\s*(.*)\[\/M]$/gim;
+const list_tag_regex = /\[L{.*}]\n(#\s*.+;\n)+\[\/L\]/gmis;
+const items_in_content = /#\s*([^;]+);/g;
+
+function getItemsList(content) {
+    let li_list = "";
+    let match;
+
+    while ((match = items_in_content.exec(content)) !== null) {
+      li_list += "<li>"+match[1].trim()+"</li>";
+    }
+
+    return li_list;
+}
+
 
 function getTagForMedia(url) {
     let media_type = ""
@@ -39,9 +52,10 @@ function getTagForMedia(url) {
   }
 }
 
-const generateHtmlMediaFromLine = (allLine) => {
-  let mediaTag = ""
-  let src = "";
+const generateHtmlListFromLine = (allLine, content) => {
+  let tags;
+  let type = "";
+  let items = getItemsList(content);
 
   // getting all attributes for a line
   let attributes = utils.getAttributesArray(allLine);
@@ -50,16 +64,22 @@ const generateHtmlMediaFromLine = (allLine) => {
   for (var i = 0; i < attributes.length; i++) {
     var [attribute, attribute_value] = attributes[i].split(utils.colon_separator_regex);
 
-    if (attribute === "src") {
-      src = attribute_value.replace(/"/g, '');
+    if (attribute === "type") {
+      type = attribute_value.replace(/"/g, '');
     }
   }
 
-  // adding style attribute to the tag containing the content
-  if (src)
-    mediaTag = getTagForMedia(src).replace("{}", src);
+  // choosing the list type
+  console.log("type : "+type);
+  if (type === "b") {
+    tags = `<ul>${items}</ul>`;
+  } else if (type === "n"){
+    tags = `<ol>${items}</ol>`;
+  } else {
+    tags = `<ul>${items}</ul>`;
+  }
 
-  return mediaTag;
+   return tags;
 };
 
-module.exports = { media_tag_regex, generateHtmlMediaFromLine };
+module.exports = { list_tag_regex, generateHtmlListFromLine };

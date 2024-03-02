@@ -1,5 +1,6 @@
 const textParser = require("./Parsers/TextParser");
 const mediaParser = require("./Parsers/MediaParser");
+const listParser = require("./Parsers/ListParser");
 const utils = require("./Parsers/Utils");
 
 const Ornement = (text) => {
@@ -9,6 +10,9 @@ const Ornement = (text) => {
     })
     .replace(mediaParser.media_tag_regex, (allLine, content) => {
       return mediaParser.generateHtmlMediaFromLine(allLine);
+    })
+    .replace(listParser.list_tag_regex, (allLine, content) => {
+      return listParser.generateHtmlListFromLine(allLine, content);
     });
 };
 
@@ -20,6 +24,11 @@ To all of my [T{style:"sup",  highlight-color:"#00FF00", font-style:"i"}]friends
 [M{src:"test.jpg"}]Test[/M]
 [M{src:"test.mkv"}]Test[/M]
 [M{src:"test.ogg"}]Test[/M]
+[L{type:"n"}]
+# tetst;
+# test[T{style:"sup",  highlight-color:"#00FF00", font-style:"i"}]2[/T];
+# test3;
+[/L]
 `;
 
 console.log(Ornement(coolMessage));
