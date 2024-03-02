@@ -1,5 +1,6 @@
+const utils = require("./Utils");
+
 const text_tag_regex = /\[T{.*}]\s*(.*)\[\/T]$/gim;
-const colon_separator_regex = /(?<!https):(?!\/\/)/gm
 
 function parseFontStyles(fontStyles) {
     let fontStyleAttributes = '';
@@ -55,4 +56,52 @@ function getTagContainingContent(style) {
   }
 }
 
-module.exports = { text_tag_regex, colon_separator_regex, getTagContainingContent, parseFontStyles };
+const generateHtmlFromLine = (allLine, content) => {
+  console.log("all : " + content);
+  let tagContainingContent = "<span {}>";
+  let closingTagContainingContent = "</span>";
+
+  let styleAttribute = "";
+  let link = "";
+  let colorAttribute = "";
+  let highlightAttribute = "";
+
+  // getting all attributes for a line
+  let attributes = utils.getAttributesArray(allLine);
+
+  console.log(attributes);
+  // settings to set HTML code
+  for (var i = 0; i < attributes.length; i++) {
+    var [attribute, attribute_value] = attributes[i].split(utils.colon_separator_regex);
+
+    if (attribute === "font-style") {
+      console.log("font-style");
+      styleAttribute = parseFontStyles(attribute_value);
+    } else if (attribute === "link") {
+      console.log("link");
+      link = attribute_value.replace(/"/g, '');
+    } else if (attribute === "color") {
+      colorAttribute = `color: ${attribute_value.replace(/"/g, '')};`;
+    } else if (attribute === "highlight-color") {
+      highlightAttribute = `background-color: ${attribute_value.replace(/"/g, '')};`;
+    } else if (attribute === "style") {
+      [tagContainingContent, closingTagContainingContent] = getTagContainingContent(attribute_value.replace(/"/g, ''));
+    }
+  }
+
+  const linkAttribute = link ? `<a href="${link}">` : '';
+  const closingTag = link ? '</a>' : '';
+
+  let result = "";
+
+  // adding style attribute to the tag containing the content
+  result = tagContainingContent.replace("{}", `style="${styleAttribute}${colorAttribute}${highlightAttribute}"`) + content + closingTagContainingContent;
+
+  if (link) {
+    // surrounding the tag containing the content with a tag, with href set
+    result = linkAttribute + result + closingTag;
+  }
+  return result;
+};
+
+module.exports = { text_tag_regex, generateHtmlFromLine };
