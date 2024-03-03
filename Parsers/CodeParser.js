@@ -6,4 +6,4 @@ const generateHtmlCodeFromLine = (content) => {
    return tags;
 };
 
-module.exports = { code_tag_regex, generateHtmlCodeFromLine };
+export { code_tag_regex, generateHtmlCodeFromLine };

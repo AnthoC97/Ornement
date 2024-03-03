@@ -1,4 +1,4 @@
-const utils = require("./Utils");
+import { getAttributesArray, colon_separator_regex } from "./Utils.js"
 
 const text_tag_regex = /\[T{.*}]\s*(.*)\[\/T]$/gim;
 
@@ -66,11 +66,11 @@ const generateHtmlTextFromLine = (allLine, content) => {
   let highlightAttribute = "";
 
   // getting all attributes for a line
-  let attributes = utils.getAttributesArray(allLine);
+  let attributes = getAttributesArray(allLine);
 
   // settings to set HTML code
   for (var i = 0; i < attributes.length; i++) {
-    var [attribute, attribute_value] = attributes[i].split(utils.colon_separator_regex);
+    var [attribute, attribute_value] = attributes[i].split(colon_separator_regex);
 
     if (attribute === "font-style") {
       styleAttribute = parseFontStyles(attribute_value);
@@ -100,4 +100,4 @@ const generateHtmlTextFromLine = (allLine, content) => {
   return result;
 };
 
-module.exports = { text_tag_regex, generateHtmlTextFromLine };
+export { text_tag_regex, generateHtmlTextFromLine };

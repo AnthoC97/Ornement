@@ -12,4 +12,4 @@ function getAttributesArray(line) {
   return matches;
 }
 
-module.exports = { colon_separator_regex, getAttributesArray };
+export { colon_separator_regex, getAttributesArray };

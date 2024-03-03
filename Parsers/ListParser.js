@@ -1,6 +1,6 @@
-const utils = require("./Utils");
-const textParser = require("./TextParser");
-const mediaParser = require("./MediaParser");
+import { getAttributesArray, colon_separator_regex } from "./Utils.js"
+import { text_tag_regex,generateHtmlTextFromLine } from "./TextParser.js";
+import { media_tag_regex, generateHtmlMediaFromLine } from "./MediaParser.js";
 
 const list_tag_regex = /\[L{.*}]\n(#\s*.+;\n)+\[\/L\]/gmis;
 const items_in_content = /#\s*([^;]+);/g;
@@ -11,11 +11,11 @@ function getItemsList(content) {
 
     while ((match = items_in_content.exec(content)) !== null) {
       var text_parsed = match[1].trim()
-      .replace(textParser.text_tag_regex, (allLine, content) => {
-        return textParser.generateHtmlTextFromLine(allLine, content);
+      .replace(text_tag_regex, (allLine, content) => {
+        return generateHtmlTextFromLine(allLine, content);
       })
-      .replace(mediaParser.media_tag_regex, (allLine, content) => {
-        return mediaParser.generateHtmlMediaFromLine(allLine);
+      .replace(media_tag_regex, (allLine, content) => {
+        return generateHtmlMediaFromLine(allLine);
       })
       console.log(text_parsed);
       li_list += "<li>"+text_parsed+"</li>";
@@ -30,11 +30,11 @@ const generateHtmlListFromLine = (allLine, content) => {
   let items = getItemsList(content);
 
   // getting all attributes for a line
-  let attributes = utils.getAttributesArray(allLine);
+  let attributes = getAttributesArray(allLine);
 
   // settings to set HTML code
   for (var i = 0; i < attributes.length; i++) {
-    var [attribute, attribute_value] = attributes[i].split(utils.colon_separator_regex);
+    var [attribute, attribute_value] = attributes[i].split(colon_separator_regex);
 
     if (attribute === "type") {
       type = attribute_value.replace(/"/g, '');
@@ -54,4 +54,4 @@ const generateHtmlListFromLine = (allLine, content) => {
    return tags;
 };
 
-module.exports = { list_tag_regex, generateHtmlListFromLine };
+export { list_tag_regex, generateHtmlListFromLine };

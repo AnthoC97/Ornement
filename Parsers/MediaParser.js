@@ -1,4 +1,4 @@
-const utils = require("./Utils");
+import { getAttributesArray, colon_separator_regex } from "./Utils.js"
 
 const media_tag_regex = /\[M{.*}]\s*(.*)\[\/M]$/gim;
 
@@ -44,11 +44,11 @@ const generateHtmlMediaFromLine = (allLine) => {
   let src = "";
 
   // getting all attributes for a line
-  let attributes = utils.getAttributesArray(allLine);
+  let attributes = getAttributesArray(allLine);
 
   // settings to set HTML code
   for (var i = 0; i < attributes.length; i++) {
-    var [attribute, attribute_value] = attributes[i].split(utils.colon_separator_regex);
+    var [attribute, attribute_value] = attributes[i].split(colon_separator_regex);
 
     if (attribute === "src") {
       src = attribute_value.replace(/"/g, '');
@@ -62,4 +62,4 @@ const generateHtmlMediaFromLine = (allLine) => {
   return mediaTag;
 };
 
-module.exports = { media_tag_regex, generateHtmlMediaFromLine };
+export { media_tag_regex, generateHtmlMediaFromLine };

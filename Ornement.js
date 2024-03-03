@@ -1,21 +1,21 @@
-const textParser = require("./Parsers/TextParser");
-const mediaParser = require("./Parsers/MediaParser");
-const listParser = require("./Parsers/ListParser");
-const codeParser = require("./Parsers/CodeParser");
+import { text_tag_regex, generateHtmlTextFromLine } from "./Parsers/TextParser.js";
+import { media_tag_regex, generateHtmlMediaFromLine } from "./Parsers/MediaParser.js";
+import { list_tag_regex, generateHtmlListFromLine } from "./Parsers/ListParser.js";
+import { code_tag_regex, generateHtmlCodeFromLine } from "./Parsers/CodeParser.js";
 
-const Ornement = (text) => {
+function Ornement(text){
   return text
-    .replace(textParser.text_tag_regex, (allLine, content) => {
-      return textParser.generateHtmlTextFromLine(allLine, content);
+    .replace(text_tag_regex, (allLine, content) => {
+      return generateHtmlTextFromLine(allLine, content);
     })
-    .replace(mediaParser.media_tag_regex, (allLine, _) => {
-      return mediaParser.generateHtmlMediaFromLine(allLine);
+    .replace(media_tag_regex, (allLine, _) => {
+      return generateHtmlMediaFromLine(allLine);
     })
-    .replace(listParser.list_tag_regex, (allLine, content) => {
-      return listParser.generateHtmlListFromLine(allLine, content);
+    .replace(list_tag_regex, (allLine, content) => {
+      return generateHtmlListFromLine(allLine, content);
     })
-    .replace(codeParser.code_tag_regex, (_, content) => {
-      return codeParser.generateHtmlCodeFromLine(content);
+    .replace(code_tag_regex, (_, content) => {
+      return generateHtmlCodeFromLine(content);
     });
 };
 
@@ -41,3 +41,5 @@ To all of my [T{style:"sup",  highlight-color:"#00FF00", font-style:"i"}]friends
 `;
 
 console.log(Ornement(coolMessage));
+
+export { Ornement }
