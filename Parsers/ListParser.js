@@ -2,7 +2,7 @@ import { getAttributesArray, colon_separator_regex } from "./Utils.js"
 import { text_tag_regex,generateHtmlTextFromLine } from "./TextParser.js";
 import { media_tag_regex, generateHtmlMediaFromLine } from "./MediaParser.js";
 
-const list_tag_regex = /\[L{.*}]\n(#\s*.+;\n)+\[\/L\]/gmis;
+const list_tag_regex = /\[L\{.*}]\n([\s\S][^\[\/L\]]+)\n\[\/L\]/;
 const items_in_content = /#\s*([^;]+);/g;
 
 function getItemsList(content) {
