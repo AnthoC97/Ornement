@@ -3,8 +3,8 @@ import { media_tag_regex, generateHtmlMediaFromLine } from "./Parsers/MediaParse
 import { list_tag_regex, generateHtmlListFromLine } from "./Parsers/ListParser.js";
 import { code_tag_regex, generateHtmlCodeFromLine } from "./Parsers/CodeParser.js";
 
-function Ornement(text){
-  return text
+function Ornement(text, targetId){
+  const htmlTags = text
     .replace(text_tag_regex, (allLine, content) => {
       return generateHtmlTextFromLine(allLine, content);
     })
@@ -17,6 +17,7 @@ function Ornement(text){
     .replace(code_tag_regex, (_, content) => {
       return generateHtmlCodeFromLine(content);
     });
+    return htmlTags;
 };
 
 const coolMessage = `
