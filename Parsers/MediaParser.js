@@ -1,6 +1,6 @@
 import { getAttributesArray, colon_separator_regex } from "./Utils.js"
 
-const media_tag_regex = /\[M{.*}]\s*(.*)\[\/M]$/gim;
+const media_tag_regex = /\[M{.*}]\s*(.*)\[\/M]/gim;
 
 function getTagForMedia(url) {
     let media_type = ""
