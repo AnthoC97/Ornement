@@ -10,7 +10,7 @@ function getTagForMedia(url) {
     media_type = 'unknown';
     
     // Check for image types
-    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
+    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
     if (imageExtensions.includes(extension)) {
         media_type = 'image';
     }
