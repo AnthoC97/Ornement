@@ -31,9 +31,9 @@ function getTagForMedia(url) {
       case "image":
         return "<img src='{}'/>";
       case "video":
-        return "<video src='{}' preload='none' controls/>";
+        return "<video preload='none' controls/><source src='{}'></video>";
       case "audio":
-        return "<audio src='{}' preload='none' controls/>";
+        return "<audio preload='none' controls/><source src='{}'></audio>";
       default:
         return ""; 
   }
