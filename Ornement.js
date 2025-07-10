@@ -5,14 +5,14 @@ import { code_tag_regex, generateHtmlCodeFromLine } from "./Parsers/CodeParser.j
 
 function Ornement(text, targetId){
   const htmlTags = text
+    .replace(list_tag_regex, (allLine, content) => {
+      return generateHtmlListFromLine(allLine, content);
+    })
     .replace(text_tag_regex, (allLine, content) => {
       return generateHtmlTextFromLine(allLine, content);
     })
     .replace(media_tag_regex, (allLine, _) => {
       return generateHtmlMediaFromLine(allLine);
-    })
-    .replace(list_tag_regex, (allLine, content) => {
-      return generateHtmlListFromLine(allLine, content);
     })
     .replace(code_tag_regex, (_, content) => {
       return generateHtmlCodeFromLine(content);
