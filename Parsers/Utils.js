@@ -1,4 +1,4 @@
-const attributes_regex = /(?<=\[[T|M|L]\{)\s*\w+-*\w+:"[^"]*"\s*(?=,)|(?<=,)\s*\w+-*\w+:"[^"]*"\s*(?=,)|(?<=\[[T|M|L]\{)\s*\w+-*\w+:"[^"]*"\s*(?=})|(?<=,)\s*\w+-*\w+:"[^"]*"\s*(?=})/gim
+const attributes_regex = /(?<=\[[T|M|L]\{)\s*\w+-*\w+\s*:\s*"[^"]*"\s*(?=,)|(?<=,)\s*\w+-*\w+\s*:\s*"[^"]*"\s*(?=,)|(?<=\[[T|M|L]\{)\s*\w+-*\w+\s*:\s*"[^"]*"\s*(?=})|(?<=,)\s*\w+-*\w+\s*:\s*"[^"]*"\s*(?=})/gim
 const colon_separator_regex = /(?<!https):(?!\/\/)/gm
 
 function getAttributesArray(line) {
@@ -6,7 +6,7 @@ function getAttributesArray(line) {
   let match;
 
   while ((match = attributes_regex.exec(line)) !== null) {
-    matches.push(match[0].trim());
+    matches.push(match[0].replace(/\s/g,''));
   }
 
   return matches;
