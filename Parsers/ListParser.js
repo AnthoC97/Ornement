@@ -1,9 +1,10 @@
 import { getAttributesArray, colon_separator_regex } from "./Utils.js"
 import { text_tag_regex,generateHtmlTextFromLine } from "./TextParser.js";
 import { media_tag_regex, generateHtmlMediaFromLine } from "./MediaParser.js";
+import { code_tag_regex, generateHtmlCodeFromLine } from "./CodeParser.js";
 
 const list_tag_regex = /\[L\{.*}][\n\r]([\s\S]+?)[\n\r]\[\/L\]/g;
-const items_in_content = /#\s*([^;]+);/g;
+const items_in_content = /#\s*([\s\S]+?)(?<!&lt|&gt);/g;
 
 function getItemsList(content) {
     let li_list = "";
@@ -17,6 +18,9 @@ function getItemsList(content) {
       .replace(media_tag_regex, (allLine, content) => {
         return generateHtmlMediaFromLine(allLine);
       })
+	  .replace(code_tag_regex, (_, content) => {
+        return generateHtmlCodeFromLine(content);
+      });
       console.log(text_parsed);
       li_list += "<li>"+text_parsed+"</li>";
     }

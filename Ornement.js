@@ -4,12 +4,12 @@ import { list_tag_regex, generateHtmlListFromLine } from "./Parsers/ListParser.j
 import { code_tag_regex, generateHtmlCodeFromLine } from "./Parsers/CodeParser.js";
 
 
-
-const anti_xss_regex = /<.*>.*<.*>/g;
-
 function Ornement(text){
-  const htmlTags = text
-	.replace(anti_xss_regex, "")
+  const escapedText = text
+  .replace(/</g, "&lt;")
+  .replace(/>/g, "&gt;");
+  
+  const htmlTags = escapedText
     .replace(list_tag_regex, (allLine, content) => {
       return generateHtmlListFromLine(allLine, content);
     })
