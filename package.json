@@ -1,0 +1,28 @@
+{
+  "name": "ornement",
+  "version": "0.1.1",
+  "type": "module",
+  "description": "Ornement is a WYSIWYG solution \u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[Dand a rich text editor. The  create by Darktouffe Company. The advantage of Ornement is that it is easy of install and use.",
+  "main": "Ornement.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnthoC97/Ornement.git"
+  },
+  "keywords": [
+    "ornement",
+    "textarea",
+    "wysiwyg",
+    "rte",
+    "tags",
+    "tag"
+  ],
+  "author": "Darktouffe Company",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/AnthoC97/Ornement/issues"
+  },
+  "homepage": "https://github.com/AnthoC97/Ornement#readme"
+}
