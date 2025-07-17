@@ -11,3 +11,5 @@
 
 ```bash
 npm install ornement
+
+**⚠️ Ornement is not responsible for any security problems related to its use. **
