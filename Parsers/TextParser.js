@@ -1,6 +1,6 @@
 import { getAttributesArray, colon_separator_regex } from "./Utils.js"
 
-const text_tag_regex = /\[T{.*}]\s*(.*)\[\/T]/gim;
+const text_tag_regex = /\[T{.*?}]\s*(.*?)\[\/T]/gim;
 
 function parseFontStyles(fontStyles) {
     let fontStyleAttributes = '';
